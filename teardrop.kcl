@@ -1,0 +1,17 @@
+export fn teardropRegion(plane, center, diam, orientation) {
+  rad = diam / 2
+
+  distToCorner = sqrt(2 * rad ^ 2)
+
+  teardropSketch = sketch(on = plane) {
+    cornerPt = vector::add(polar(angle = orientation, length = distToCorner), v = center)
+    line1EndPt = vector::add(polar(angle = orientation - 45deg, length = rad), v = center)
+    line2EndPt = vector::add(polar(angle = orientation + 45deg, length = rad), v = center)
+    line1 = line(start = cornerPt, end = line1EndPt)
+    line2 = line(start = cornerPt, end = line2EndPt)
+    arc1 = arc(start = line2EndPt, end = line1EndPt, center)
+  }
+  hidden001 = hide(teardropSketch)
+  teardropRegion = region(point = center, sketch = teardropSketch)
+  return teardropRegion
+}
